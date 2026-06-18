@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Just Yummy Bakery</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Google Fonts for elegant look -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- ====== NAVBAR (Pinned) ====== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">🧁</span>
+                <span class="logo-text">Just Yummy</span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#menu" class="nav-link">Menu</a></li>
+                <li><a href="#speciality" class="nav-link">Speciality</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li>
+                    <button class="search-btn" id="searchBtn" aria-label="Search">
+                        🔍
+                    </button>
+                </li>
+            </ul>
+            <!-- Mobile hamburger -->
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ====== SEARCH MODAL ====== -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-modal">
+            <button class="search-close" id="searchClose">&times;</button>
+            <h2>Search Our Bakery</h2>
+            <input type="text" id="searchInput" placeholder="Search for cakes, breads, pastries..." />
+            <div class="search-results" id="searchResults">
+                <!-- Results will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== HOME SECTION ====== -->
+    <section id="home" class="section home-section">
+        <div class="home-content">
+            <h1 class="home-title">Welcome to <span>Just Yummy</span></h1>
+            <p class="home-subtitle">Where every bite is a piece of happiness 🍰</p>
+            <p class="home-description">Freshly baked with love, using the finest ingredients. From our oven to your heart.</p>
+            <a href="#menu" class="cta-btn">Explore Our Menu</a>
+        </div>
+        <!-- REPLACE this image with your own hero image -->
+        <div class="home-image">
+            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600" alt="Fresh bakery display" />
+            <!-- ^ Replace src with your own image path -->
+        </div>
+    </section>
+
+    <!-- ====== ABOUT SECTION ====== -->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>Our Story</h3>
+                    <p>Just Yummy started in a small kitchen with a big dream — to bring the warmth and comfort of homemade baked goods to everyone. Every recipe is crafted with care, using time-honored techniques and the finest ingredients.</p>
+                    <p>We believe that baking is an art, and every creation tells a story of passion, dedication, and love.</p>
+                    <h3>Our Mission</h3>
+                    <p>To create moments of joy through delicious, beautiful, and wholesome baked goods that bring people together.</p>
+                </div>
+                <div class="about-image">
+                    <!-- REPLACE this image with your own about image -->
+                    <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600" alt="Baking process" />
+                    <!-- ^ Replace src with your own image path -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== MENU SECTION ====== -->
+    <section id="menu" class="section menu-section">
+        <div class="container">
+            <h2 class="section-title">Our Menu</h2>
+            <p class="section-subtitle">Freshly baked every morning</p>
+            <div class="menu-grid" id="menuGrid">
+                <!-- Menu items will be rendered by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== SPECIALITY SECTION ====== -->
+    <section id="speciality" class="section speciality-section">
+        <div class="container">
+            <h2 class="section-title">Our Specialities</h2>
+            <p class="section-subtitle">Signature creations you'll love</p>
+            <div class="speciality-grid" id="specialityGrid">
+                <!-- Speciality items will be rendered by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== CONTACT SECTION ====== -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p>📍 123 Bakery Lane, Sweet City, SC 12345</p>
+                    <p>📞 (555) 123-4567</p>
+                    <p>✉️ hello@justyummy.com</p>
+                    <p>🕐 Mon - Sat: 7:00 AM - 8:00 PM</p>
+                    <p>🕐 Sunday: 8:00 AM - 5:00 PM</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram">📸</a>
+                        <a href="#" aria-label="Facebook">👍</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <input type="text" placeholder="Your Name" required />
+                    <input type="email" placeholder="Your Email" required />
+                    <textarea placeholder="Your Message" rows="4" required></textarea>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FOOTER ====== -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Just Yummy Bakery. Baked with love 💕</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
