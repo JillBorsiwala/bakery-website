@@ -29,10 +29,12 @@ A responsive, production-ready bakery website that lets customers browse the men
 
 ```
 Home-page/
+├── .git/                   # Git metadata for the GitHub repository
+├── .gitignore             # Ignore generated frontend outputs
 ├── index.html              # HTML entry point (loads Vite bundle)
-├── vite.config.js          # Vite config with dev-server proxy to backend
+├── package-lock.json       # Locked dependency versions
 ├── package.json            # Dependencies and scripts
-├── style.css               # Legacy CSS (not imported by the app)
+├── README.md               # Frontend documentation
 ├── src/
 │   ├── main.jsx            # React entry point (mounts App into #root)
 │   ├── App.jsx             # Root component — orchestrates all state and modals
@@ -53,6 +55,8 @@ Home-page/
 │   │   └── Speciality/     # Speciality product grid
 │   ├── context/
 │   │   └── CartContext.jsx # Cart state management (React Context)
+│   ├── data/
+│   │   └── products.js     # Fallback product catalog used when API data is unavailable
 │   ├── hooks/
 │   │   ├── useBodyScrollLock.js  # Locks body scroll when modals are open
 │   │   └── useEscapeKey.js       # Closes modals on Escape key
@@ -60,10 +64,10 @@ Home-page/
 │   │   ├── api.js          # Low-level fetch wrapper with error handling
 │   │   ├── products.js     # Product API calls (fetch all, menu, speciality)
 │   │   └── orders.js       # Order API call (create order)
-	│   ├── data/
-	│   │   └── products.js     # Fallback product catalog used when API data is unavailable
 │   └── utils/
 │       └── calculateTotal.js  # Cart total calculation + currency formatting
+├── style.css               # Legacy CSS (not imported by the app)
+└── vite.config.js          # Vite config with dev-server proxy to backend
 ```
 
 ### Component Hierarchy
