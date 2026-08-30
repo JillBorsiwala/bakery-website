@@ -15,8 +15,9 @@ A responsive, production-ready bakery website that lets customers browse the men
 
 ### Key Features
 
-- **Dynamic Menu** — Fetches and renders regular menu items from the backend API
+- **Dynamic Menu** — Fetches and renders regular menu items from the backend API, with a local fallback catalog when the backend is unavailable
 - **Dynamic Speciality Section** — Fetches and renders speciality items; each card is clickable and opens the Quantity Modal (identical behaviour to menu items)
+- **Offline-Friendly Fallback Data** — Ships with built-in product data and inline SVG placeholders so the menu and speciality sections still render cleanly without external image hosts
 - **Dynamic Cart** — React Context-based cart with duplicate-item merging and live total calculation
 - **Dynamic Order Submission** — Submits cart items to the backend with customer name validation
 - **Product Search** — Modal-based search across all products
@@ -59,7 +60,8 @@ Home-page/
 │   │   ├── api.js          # Low-level fetch wrapper with error handling
 │   │   ├── products.js     # Product API calls (fetch all, menu, speciality)
 │   │   └── orders.js       # Order API call (create order)
-│   ├── data/               # Static data (if any)
+	│   ├── data/
+	│   │   └── products.js     # Fallback product catalog used when API data is unavailable
 │   └── utils/
 │       └── calculateTotal.js  # Cart total calculation + currency formatting
 ```
@@ -101,13 +103,14 @@ The Vite dev server proxies `/api` requests to `http://127.0.0.1:8000` (the back
 ### Product Data Flow
 
 1. On mount, `App.jsx` fetches all products and speciality products in parallel via `Promise.allSettled`.
-2. Menu items are filtered from the full product list (`!item.is_special`).
-3. Both `Menu` and `Speciality` render `ProductCard` components.
-4. Clicking any product (menu or speciality) calls `handleSelectProduct`, which sets the selected product and opens the `QuantityModal`.
-5. Confirming the quantity calls `addItem` on the `CartContext`, which merges duplicates.
-6. The `Cart` component displays all cart items with subtotals and a total.
-7. Clicking "Submit Order" opens the `CustomerModal` for name entry.
-8. Confirming the customer name sends the order to the backend via `createOrder()`.
+2. `services/products.js` normalizes API responses and falls back to a local product catalog when the backend returns no data or is unavailable.
+3. Menu items are filtered from the full product list (`!item.is_special`).
+4. Both `Menu` and `Speciality` render `ProductCard` components.
+5. Clicking any product (menu or speciality) calls `handleSelectProduct`, which sets the selected product and opens the `QuantityModal`.
+6. Confirming the quantity calls `addItem` on the `CartContext`, which merges duplicates.
+7. The `Cart` component displays all cart items with subtotals and a total.
+8. Clicking "Submit Order" opens the `CustomerModal` for name entry.
+9. Confirming the customer name sends the order to the backend via `createOrder()`.
 
 ### Contact Form
 
