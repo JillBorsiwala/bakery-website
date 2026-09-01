@@ -8,7 +8,7 @@ const fallbackProducts = [
     price: 80,
     description: 'Flaky, golden, and baked fresh every morning.',
     category: 'pastry',
-    image: 'https://images.unsplash.com/photo-1549903072-7e6e0d65bd0f?w=800',
+    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800',
     is_special: false,
     created_at: fallbackTimestamp,
   },
