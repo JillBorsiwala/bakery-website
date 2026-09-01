@@ -93,13 +93,7 @@ export default function Contact() {
             <p>📍 AV Road, Vallabh Vidyanagar, Anand, 388001</p>
             <p>📞 (+91) 2705060911</p>
             <p>✉️ <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></p>
-            <p>🕐 Monday – Saturday: 8:00 AM – 6:00 PM</p>
-            <p>🕐 Sunday: 9:00 AM – 1:00 PM</p>
-            <div className="social-links">
-              <a href="#" aria-label="Instagram">📸</a>
-              <a href="#" aria-label="Facebook">👍</a>
-              <a href="#" aria-label="Twitter">🐦</a>
-            </div>
+            <p>📅 Monday – Saturday: 8:00 AM – 6:00 PM</p>
           </div>
 
           <form className="contact-form" onSubmit={handleSubmit} noValidate>

@@ -1,11 +1,23 @@
+import { useState, useEffect } from 'react';
+
 export default function Navbar({ isMobileOpen, onToggleMobile, onNavigate, onOpenSearch }) {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleLinkClick = (event, targetId) => {
     event.preventDefault();
     onNavigate(targetId);
   };
 
   return (
-    <nav className="navbar" id="navbar">
+    <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`} id="navbar">
       <div className="nav-container">
         <button className="nav-logo" type="button" onClick={() => onNavigate('home')} aria-label="Go to home section">
           <span className="logo-icon">🧁</span>
