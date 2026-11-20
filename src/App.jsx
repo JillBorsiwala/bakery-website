@@ -29,6 +29,8 @@ function BakeryApp() {
   const [specialityError, setSpecialityError] = useState('');
   const [isSubmittingOrder, setIsSubmittingOrder] = useState(false);
   const [orderError, setOrderError] = useState('');
+  const [orderNotificationId, setOrderNotificationId] = useState(0);
+  const [orderNotificationMessage, setOrderNotificationMessage] = useState('Order Submitted.');
   const { cartItems, addItem, setCartItems } = useCart();
 
   useEffect(() => {
@@ -74,6 +76,18 @@ function BakeryApp() {
     };
   }, []);
 
+  useEffect(() => {
+    if (orderNotificationId === 0) {
+      return undefined;
+    }
+
+    const timer = window.setTimeout(() => {
+      setOrderNotificationId(0);
+    }, 4000);
+
+    return () => window.clearTimeout(timer);
+  }, [orderNotificationId]);
+
   const menuItems = useMemo(() => products.filter((item) => !item.is_special), [products]);
   const searchItems = useMemo(() => products, [products]);
 
@@ -109,22 +123,30 @@ function BakeryApp() {
     }
   };
 
-  const handleConfirmCustomer = async ({ customerName, items }) => {
+  const handleConfirmCustomer = async ({ customerName, customerEmail, items }) => {
     setIsSubmittingOrder(true);
     setOrderError('');
 
     try {
       const payload = {
         customer_name: customerName,
+        customer_email: customerEmail,
         items: items.map((item) => ({
           product_id: item.product_id ?? item.id,
           quantity: item.quantity,
         })),
       };
 
-      await createOrder(payload);
+      const result = await createOrder(payload);
+      const responseData = result?.data;
+      setOrderNotificationMessage(
+        responseData?.receipt_sent
+          ? `Order submitted. Receipt sent to ${customerEmail}.`
+          : `Order submitted. Receipt email could not be sent to ${customerEmail}.`,
+      );
       setCartItems([]);
       setIsCustomerOpen(false);
+      setOrderNotificationId((currentId) => currentId + 1);
     } catch (error) {
       setOrderError(error?.message || 'Server unavailable');
     } finally {
@@ -148,6 +170,13 @@ function BakeryApp() {
 
   return (
     <div className="app-shell">
+      {orderNotificationId > 0 ? (
+        <div className="order-success-toast" role="status" aria-live="polite">
+          <span className="order-success-toast__icon" aria-hidden="true">✓</span>
+          <span>{orderNotificationMessage}</span>
+        </div>
+      ) : null}
+
       <Navbar
         isMobileOpen={isMobileOpen}
         onToggleMobile={() => setIsMobileOpen((currentState) => !currentState)}

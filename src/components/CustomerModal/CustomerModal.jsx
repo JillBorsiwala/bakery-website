@@ -12,6 +12,7 @@ export default function CustomerModal({
   isSubmitting = false,
 }) {
   const [customerName, setCustomerName] = useState('');
+  const [customerEmail, setCustomerEmail] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   useBodyScrollLock(isOpen);
@@ -20,11 +21,16 @@ export default function CustomerModal({
   useEffect(() => {
     if (isOpen) {
       setCustomerName('');
+      setCustomerEmail('');
       setErrorMessage('');
     }
   }, [isOpen]);
 
   const isValid = useMemo(() => /^[A-Za-z0-9 ]{1,20}$/.test(customerName.trim()), [customerName]);
+  const isEmailValid = useMemo(
+    () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail.trim()),
+    [customerEmail],
+  );
 
   const handleChange = (event) => {
     const value = event.target.value.replace(/[^A-Za-z0-9 ]/g, '').slice(0, 20);
@@ -48,8 +54,14 @@ export default function CustomerModal({
       return;
     }
 
+    if (!isEmailValid) {
+      setErrorMessage('Enter a valid email address for the receipt.');
+      return;
+    }
+
     await onConfirm({
       customerName: trimmedName,
+      customerEmail: customerEmail.trim(),
       items,
       totalCost,
     });
@@ -78,12 +90,27 @@ export default function CustomerModal({
           aria-label="Customer name"
         />
 
+        <label className="customer-label" htmlFor="customer-email">Receipt email</label>
+        <input
+          id="customer-email"
+          className={`modal-input customer-input ${errorMessage ? 'modal-input--error' : ''}`}
+          type="email"
+          maxLength="254"
+          value={customerEmail}
+          onChange={(event) => {
+            setCustomerEmail(event.target.value);
+            if (errorMessage) setErrorMessage('');
+          }}
+          placeholder="Enter email for receipt"
+          aria-label="Receipt email"
+        />
+
         {errorMessage ? <p className="modal-error">{errorMessage}</p> : null}
         {submitError ? <p className="modal-error">{submitError}</p> : null}
 
         <div className="customer-actions">
           <button className="cancel-btn" type="button" onClick={onClose}>Cancel</button>
-          <button className="confirm-btn" type="button" onClick={handleConfirm} disabled={!isValid || isSubmitting}>
+          <button className="confirm-btn" type="button" onClick={handleConfirm} disabled={!isValid || !isEmailValid || isSubmitting}>
             {isSubmitting ? 'Submitting...' : 'Confirm'}
           </button>
         </div>
